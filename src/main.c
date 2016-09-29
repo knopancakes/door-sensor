@@ -3,13 +3,13 @@
 #include <avr/sleep.h>
 #include <util/delay.h>
 #include "uart.h"
+#include "io.h"
+#include "power.h"
 
-#define LED _BV(0);
-#define led_on()  { DDRB |= LED }
-#define led_off() { DDRB &= ~LED }
-
+/* wrapper for all initialization calls */
 void chip_init(void);
 
+/* main routine */
 int main(void)
 {
   
@@ -17,7 +17,7 @@ int main(void)
 
   while(1)
     {
-      /* periodic flash */
+      /* periodic LED flash */
       led_on();
       _delay_ms(100);
       led_off();
@@ -28,11 +28,19 @@ int main(void)
 
 }
 
+/* function definitions */
 void chip_init(void)
 {
 
-  /* SETUP LED PORT */
-  PORTB &= ~LED;
+  /* setup LED */
+  led_init();
 
+  /* setup door switch */
+  switch_init();
+
+  /* initialize uart driver */
   uart_init();
+
+  /* begin low-power mode */
+  low_power_mode();
 }
