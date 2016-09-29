@@ -2,6 +2,7 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
+#include "uart.h"
 
 #define LED _BV(0);
 #define led_on()  { DDRB |= LED }
@@ -33,4 +34,5 @@ void chip_init(void)
   /* SETUP LED PORT */
   PORTB &= ~LED;
 
+  uart_init();
 }
