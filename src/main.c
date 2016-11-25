@@ -2,7 +2,7 @@
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
-#include "uart.h"
+#include "ask.h"
 #include "io.h"
 #include "power.h"
 
@@ -19,8 +19,10 @@ int main(void)
     {
       /* periodic LED flash */
       led_on();
+      switchOn(24,10);
       _delay_ms(100);
       led_off();
+      switchOff(24,10);
       _delay_ms(1900);
     }
 
@@ -38,9 +40,9 @@ void chip_init(void)
   /* setup door switch */
   switch_init();
 
-  /* initialize uart driver */
-  uart_init();
+  /* initialize amplitude-shift keying driver */
+  ask_init();
 
   /* begin low-power mode */
-  low_power_mode();
+  //low_power_mode();
 }
