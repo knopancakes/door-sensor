@@ -20,6 +20,19 @@ static inline void delay_us(uint16_t count) {
   }
 }
 
+static const proto[] = {
+    { 350, {  1, 31 }, {  1,  3 }, {  3,  1 } },    // protocol 1
+    { 650, {  1, 10 }, {  1,  2 }, {  2,  1 } },    // protocol 2
+    { 100, { 30, 71 }, {  4, 11 }, {  9,  6 } },    // protocol 3
+    { 380, {  1,  6 }, {  1,  3 }, {  3,  1 } },    // protocol 4
+    { 500, {  6, 14 }, {  1,  2 }, {  2,  1 } },    // protocol 5
+};
+
+enum {
+  numProto = sizeof(proto) / sizeof(proto[0])
+};
+
+
 void ask_init(void)
 {
   nTransmitterPin = -1;
